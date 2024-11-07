@@ -1,0 +1,7 @@
+For testing:
+...\inf_428_hw_1\task_2> python -m tests.test_aggregated_score
+
+For running main.py:
+...\inf_428_hw_1> .venv\Scripts\activate activate
+...inf_428_hw_1\task_2> python main.py
+
