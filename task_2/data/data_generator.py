@@ -19,4 +19,11 @@ def generate_random_data(mean, variance, num_samples):
         (it takes 90 if mean + variance + 1 is more than 90;  + 1 to ensure mean + variance
         is included, because .random.randint() is exclusive of its upper limit)
     """
-    return np.random.randint(max(mean - variance, 0), min(mean + variance + 1, 90), num_samples)
+    lower_bound = max(mean - variance, 0)
+    upper_bound = min(mean + variance + 1, 90)
+
+    # Ensure lower bound is less than upper bound
+    if lower_bound >= upper_bound:
+        lower_bound = max(upper_bound - 1, 0)
+
+    return np.random.randint(lower_bound, upper_bound, num_samples)

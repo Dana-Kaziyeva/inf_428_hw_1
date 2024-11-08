@@ -41,6 +41,5 @@ def time_difference_in_hours(time1, time2):
     :param time2: Time in 24-hour format (0-23 hours).
     :return: Time difference in hours.
     """
-    # Handle the cyclic nature of time (24-hour format)
     diff = abs(time2 - time1)
     return min(diff, 24 - diff)

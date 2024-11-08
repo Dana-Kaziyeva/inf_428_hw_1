@@ -12,6 +12,8 @@ def calculate_weighted_average(departments_mean, importance_weights):
     Returns:
         float: Weighted average of department mean scores.
     """
+    if any(weight < 0 for weight in importance_weights):
+        raise ValueError("Weights should not be negative.")
     total_weighted_score = 0  #sum of the weighted mean scores of all departments
     total_weight = 0          #sum of all the importance tags
 
