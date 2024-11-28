@@ -1,3 +1,5 @@
+from typing import List
+
 class Solution(object):
     def findLengthOfLCIS(self, nums: List[int]) -> int:
         n = 1

@@ -1,32 +1,31 @@
-import numpy as np
 import sys
 from pathlib import Path
 
+
+
 sys.path.append(str(Path(__file__).resolve().parent))
 
-from analysis.time_difference import time_difference_in_hours
-from analysis.model_evaluation import evaluate_model
 from data.sample_data import generate_sample_data
-from sklearn.linear_model import LinearRegression
-
+from analysis.feature_extraction import extract_time_features
+from analysis.model import build_and_train_model
 
 def main():
+    # Generate random data
+    df = generate_sample_data()
+    # Extract features and calculate time differences
+    df = extract_time_features(df)
 
-    print("Time difference between 23:00 and 01:00:", time_difference_in_hours(23, 1))  # Expected output: 2
+    # Print the time differences (in hours, minutes, and seconds)
+    for index, row in df.iterrows():
+        # Format the output string
+        print(f"Difference between {int(row['hour_1']):02}:{int(row['minute_1']):02}:{int(row['second_1']):02} "
+              f"and {int(row['hour_2']):02}:{int(row['minute_2']):02}:{int(row['second_2']):02} is "
+              f"{int(row['diff_hours'])} hours {int(row['diff_minutes'])} minutes {int(row['diff_seconds'])} seconds")
+    print(f"Difference in seconds {int(row['time_diff_sec'])}")
 
-    data = generate_sample_data()
-    print("Sample Data:\n", data)
-
-    model = LinearRegression()
-    X_train = np.array([[1], [2], [3], [4], [5]])
-    y_train = np.array([1, 2, 3, 4, 5])
-    model.fit(X_train, y_train)
-
-    X_test = np.array([[6], [7]])
-    y_test = np.array([6, 7])
-    mse = evaluate_model(model, X_test, y_test)
-    print("Model evaluation (MSE):", mse)
+    model = build_and_train_model(df)
+    print(f"Predictions: {model.predict(df[['hour_1', 'minute_1', 'second_1', 'hour_2', 'minute_2', 'second_2']])}")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

@@ -3,7 +3,7 @@ import numpy as np
 from analysis.z_score_adjustment import adjust_for_outliers
 from analysis.weighted_average import calculate_weighted_average
 
-def compute_aggregated_threat_score(departments_data, importance_weights, z_threshold=3):
+def compute_aggregated_threat_score(departments_data, z_threshold=3):
     """
     Computes the final aggregated threat score using weighted average and outlier adjustment.
 
@@ -18,4 +18,4 @@ def compute_aggregated_threat_score(departments_data, importance_weights, z_thre
     department_means = [np.mean(dept) for dept in departments_data]
     adjusted_means = adjust_for_outliers(department_means, threshold=z_threshold)
 
-    return calculate_weighted_average(adjusted_means, importance_weights)
+    return calculate_weighted_average(adjusted_means)
